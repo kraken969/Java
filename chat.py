@@ -2,11 +2,15 @@ from openai import OpenAI
 
 client = OpenAI()
 
-prompt = input("Prompt: ")
+user_prompt = input("Prompt: ")
+system_prompt = "Limit your answer to one sentence."
 
 response = client.responses.create(
-    input = prompt, 
-    model = "gpt-5",
+    model="gpt-5",
+    input=[
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt}
+    ]
 )
 
 print(response.output_text)
